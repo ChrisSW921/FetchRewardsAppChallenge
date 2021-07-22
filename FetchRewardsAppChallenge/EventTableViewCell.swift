@@ -39,12 +39,13 @@ class EventTableViewCell: UITableViewCell {
     }
     
     func configure(with event: Event) {
+        
         titleLabel.text = event.title
         locationLabel.text = "\(event.venue.address)\n\(event.venue.city)\n\(event.venue.state)"
         timeLabel.text = event.datetime_local.convertToDate()
+        
         EventController.shared.fetchImageForEvent(event: event) { (result) in
             switch result {
-            
             case .success(let image):
                 DispatchQueue.main.async {
                     self.eventImageView.image = image
@@ -53,6 +54,9 @@ class EventTableViewCell: UITableViewCell {
                 print("No image found")
             }
         }
+        
+        heartImageView.image = UIImage(named: "heart")
+        heartImageView.isHidden = !EventController.shared.isFavorited(id: String(event.id))
         heartImageView.rotate()
     }
     
@@ -62,8 +66,6 @@ class EventTableViewCell: UITableViewCell {
                 contentView.addSubview($0)
                 $0.translatesAutoresizingMaskIntoConstraints = false
             })
-        
-        heartImageView.image = UIImage(named: "heart")
         
         eventImageView.layer.cornerRadius = 10
         eventImageView.clipsToBounds = true
@@ -92,8 +94,8 @@ class EventTableViewCell: UITableViewCell {
             
             heartImageView.centerXAnchor.constraint(equalTo: eventImageView.leadingAnchor),
             heartImageView.centerYAnchor.constraint(equalTo: eventImageView.topAnchor),
-            heartImageView.heightAnchor.constraint(equalToConstant: 25),
-            heartImageView.widthAnchor.constraint(equalToConstant: 25),
+            heartImageView.heightAnchor.constraint(equalToConstant: padding),
+            heartImageView.widthAnchor.constraint(equalToConstant: padding),
             
             
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),

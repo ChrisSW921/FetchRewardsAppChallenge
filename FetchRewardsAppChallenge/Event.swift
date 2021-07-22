@@ -27,7 +27,7 @@ struct Venue: Decodable {
     let city: String
     let state: String
     let name: String
-    
+    let url: String
 }
 
 struct Performers: Decodable {

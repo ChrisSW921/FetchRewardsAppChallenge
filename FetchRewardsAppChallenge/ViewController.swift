@@ -9,20 +9,26 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let searchBar: UISearchBar = {
+    var searchBar: UISearchBar = {
        return UISearchBar()
     }()
     
-    let tableView: UITableView = {
+    var tableView: UITableView = {
         return UITableView()
+    }()
+    
+    var emptyStateView: EmptyStateView = {
+        return EmptyStateView(frame: .zero)
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "Navy")
         view.backgroundColor = UIColor(named: "Navy")
+        EventController.shared.fetchAllFavorites()
         addAndConfigureSearchBar()
         addAndConfigureTableView()
-        // Do any additional setup after loading the view.
+        configureEmptyStateView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,12 +41,24 @@ class ViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // Show the Navigation Bar
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
+    }
+    
+    func configureEmptyStateView() {
+        self.view.addSubview(emptyStateView)
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyStateView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            emptyStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            emptyStateView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
     }
     
     func addAndConfigureSearchBar() {
@@ -50,7 +68,13 @@ class ViewController: UIViewController {
         searchBar.showsCancelButton = true
         
         if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
-            textfield.textColor = .white
+            
+            if #available(iOS 13, *) {
+                textfield.textColor = .white
+            } else {
+                textfield.textColor = .black
+            }
+            
             
             UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .lightGray
             
@@ -79,8 +103,8 @@ class ViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
@@ -119,6 +143,7 @@ extension ViewController: UISearchBarDelegate {
             EventController.shared.events = []
             DispatchQueue.main.async {
                 //Show the empty state
+                self.emptyStateView.isHidden = false
                 self.tableView.reloadData()
             }
         } else {
@@ -126,6 +151,7 @@ extension ViewController: UISearchBarDelegate {
                 switch result {
                 case .success(_):
                     DispatchQueue.main.async {
+                        self.emptyStateView.isHidden = true
                         self.tableView.reloadData()
                     }
                 case .failure(_):
@@ -140,10 +166,10 @@ extension ViewController: UISearchBarDelegate {
         EventController.shared.events = []
         DispatchQueue.main.async {
             //Show the empty state
+            self.emptyStateView.isHidden = false
             self.tableView.reloadData()
         }
         searchBar.resignFirstResponder()
-        
     }
 }
 

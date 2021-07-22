@@ -22,6 +22,8 @@
 		FF65380B26A61FD900A81444 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF65380A26A61FD900A81444 /* Event.swift */; };
 		FF65381826A7C6A300A81444 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF65381726A7C6A300A81444 /* EventDetailViewController.swift */; };
 		FF65382526A7CC6E00A81444 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF65382426A7CC6E00A81444 /* String+Ext.swift */; };
+		FF65382A26A8F38400A81444 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF65382926A8F38400A81444 /* GradientView.swift */; };
+		FF65382F26A8FF1400A81444 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF65382E26A8FF1400A81444 /* EmptyStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		FF65380A26A61FD900A81444 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		FF65381726A7C6A300A81444 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		FF65382426A7CC6E00A81444 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		FF65382926A8F38400A81444 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		FF65382E26A8FF1400A81444 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,8 @@
 				FF65380A26A61FD900A81444 /* Event.swift */,
 				FF65381726A7C6A300A81444 /* EventDetailViewController.swift */,
 				FF65382426A7CC6E00A81444 /* String+Ext.swift */,
+				FF65382926A8F38400A81444 /* GradientView.swift */,
+				FF65382E26A8FF1400A81444 /* EmptyStateView.swift */,
 			);
 			path = FetchRewardsAppChallenge;
 			sourceTree = "<group>";
@@ -280,8 +286,10 @@
 			files = (
 				FF65380126A61F1C00A81444 /* CoreDataStack.swift in Sources */,
 				FF65380B26A61FD900A81444 /* Event.swift in Sources */,
+				FF65382A26A8F38400A81444 /* GradientView.swift in Sources */,
 				FF6537EF26A613A400A81444 /* EventTableViewCell.swift in Sources */,
 				FF6537BA26A6093000A81444 /* ViewController.swift in Sources */,
+				FF65382F26A8FF1400A81444 /* EmptyStateView.swift in Sources */,
 				FF6537F626A61CB300A81444 /* EventController.swift in Sources */,
 				FF6537B626A6093000A81444 /* AppDelegate.swift in Sources */,
 				FF65381826A7C6A300A81444 /* EventDetailViewController.swift in Sources */,
